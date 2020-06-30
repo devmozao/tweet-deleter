@@ -1,18 +1,29 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './home.css'
 
 import { api, request } from '../utils/handleRequests'
 
+import Tweets from '../containers/tweets'
+
 function Home () {
-  getTimeline()
+  const [tweetdata, setTweetdata] = useState({})
+
+  useEffect(() => {
+    getTimeline()
+  }, [])
 
   async function getTimeline () {
-    const response = await request(api.getTimeline())
-    console.log('log', response)
+    try {
+      const response = await request(api.getTimeline())
+
+      setTweetdata(response)
+    } catch (error) {
+      console.log('error', error)
+    }
   }
 
   return (
-    <p>Home Page</p>
+    <Tweets tweetdata={tweetdata} />
   )
 }
 
