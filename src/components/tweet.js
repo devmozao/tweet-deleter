@@ -1,5 +1,25 @@
 import React from 'react'
 
+import styled from 'styled-components'
+
+const TweetWrapper = styled.div`
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-top: 0px;
+  p {
+    margin: 2px 2px 2px 2px;
+  }
+`
+const UserInfo = styled.p`
+`
+const Text = styled.p`
+`
+const Iteractions = styled.p`
+`
+const CreatedAt = styled.p`
+  font-size: 12px;
+`
+
 const Tweet = ({
   created_at = '',
   favorite_count = '',
@@ -18,14 +38,13 @@ const Tweet = ({
   truncated = '',
   user = {}
 }) => {
-  console.log('p', text)
   return (
-    <div>
-      <p>{user.name}{user.screen_name}</p>
-      <p>{text}</p>
-      <p>{retweet_count}{retweeted}{favorite_count}{favorited}</p>
-      <p>{created_at}</p>
-    </div>
+    <TweetWrapper>
+      <UserInfo><strong>{user.name}</strong>@{user.screen_name}</UserInfo>
+      <Text>{text}</Text>
+      <Iteractions>Rt: {retweet_count} rt?{retweeted} fv: {favorite_count} fv?{favorited}</Iteractions>
+      <CreatedAt>{created_at}</CreatedAt>
+    </TweetWrapper>
   )
 }
 
