@@ -11,7 +11,7 @@ const Tweets = ({ tweetdata = {} }) => {
     const t = value[key]
 
     return (
-      <Tweet {...t} />
+      <Tweet key={key} {...t} />
     )
   }
 
