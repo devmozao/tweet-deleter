@@ -13,7 +13,8 @@
     "react-scripts": "3.4.1",
     "standard": "^14.3.4",
     "styled-components": "^5.1.1",
-    "styled-reset": "^4.2.0"
+    "styled-reset": "^4.2.0",
+    "victormono": "^1.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
