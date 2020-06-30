@@ -2,15 +2,27 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-const TweetWrapper = styled.div`
-  margin-bottom: 20px;
-  margin-left: 20px;
-  margin-top: 0px;
+import colors from '../services/colors'
+
+const ParentWrapper = styled.div`
+  padding: 5px 5px 5px 5px;
+  background-color: ${colors.gray};
+  margin
+`
+
+const InnerWrapper = styled.div`
+  background-color: ${colors.darkGray};
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
   p {
-    margin: 2px 2px 2px 2px;
+    margin: 4px 4px 4px 4px;
   }
 `
 const UserInfo = styled.p`
+  strong {
+    font-weight: bold;
+  }
 `
 const Text = styled.p`
 `
@@ -39,12 +51,14 @@ const Tweet = ({
   user = {}
 }) => {
   return (
-    <TweetWrapper>
-      <UserInfo><strong>{user.name}</strong>@{user.screen_name}</UserInfo>
-      <Text>{text}</Text>
-      <Iteractions>Rt: {retweet_count} rt?{retweeted} fv: {favorite_count} fv?{favorited}</Iteractions>
-      <CreatedAt>{created_at}</CreatedAt>
-    </TweetWrapper>
+    <ParentWrapper>
+      <InnerWrapper>
+        <UserInfo><strong>{user.name}</strong>{' '}@{user.screen_name}</UserInfo>
+        <Text>{text}</Text>
+        <Iteractions>Rt: {retweet_count} rt?{retweeted} fv: {favorite_count} fv?{favorited}</Iteractions>
+        <CreatedAt>{created_at}</CreatedAt>
+      </InnerWrapper>
+    </ParentWrapper>
   )
 }
 
