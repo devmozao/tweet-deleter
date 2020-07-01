@@ -2,6 +2,17 @@
   "name": "tweetlove",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "engines": {
+    "node": "^14.x.x",
+    "npm": "6.14.x",
+    "yarn": "1.22.x"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -11,16 +22,8 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
-    "standard": "^14.3.4",
     "styled-components": "^5.1.1",
-    "styled-reset": "^4.2.0",
-    "victormono": "^1.4.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "styled-reset": "^4.2.0"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -36,5 +39,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "standard": "^14.3.4"
   }
 }
