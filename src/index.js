@@ -2,16 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import { Reset } from 'styled-reset'
-import 'victormono'
 
 import styled from 'styled-components'
 
-import colors from './services/colors'
-
 import Routes from './routes'
+import './static/nord.css'
 
-const IndexWrapper = styled.div`
-  background-color: ${colors.gray};
+const BackgroundWrapper = styled.div`
+  background-color: var(--nord0);
+
 `
 
 const Container = styled.div`
@@ -21,20 +20,20 @@ const Container = styled.div`
   margin-right: auto;
   margin-left: 10%;
   margin-right: 10%;
-  background-color: ${colors.darkGray};
-  color: #fefefe;
+  background-color: var(--nord2);
+  color: var(--nord6);
   font-family: 'JetBrains Mono';
   font-size: 16px;
 `
 
 ReactDOM.render(
   <React.StrictMode>
-    <IndexWrapper>
-      <Reset />
+    <Reset />
+    <BackgroundWrapper>
       <Container>
         <Routes />
       </Container>
-    </IndexWrapper>
+    </BackgroundWrapper>
   </React.StrictMode>,
   document.getElementById('root')
 )

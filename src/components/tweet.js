@@ -2,16 +2,13 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-import colors from '../services/colors'
-
 const ParentWrapper = styled.div`
   padding: 5px 5px 5px 5px;
-  background-color: ${colors.gray};
-  margin
+  background-color: var(--nord1);
 `
 
 const InnerWrapper = styled.div`
-  background-color: ${colors.darkGray};
+  background-color: var(--nord0);
   padding-top: 20px;
   padding-bottom: 20px;
   padding-left: 20px;
