@@ -7,10 +7,10 @@ import styled from 'styled-components'
 
 import Routes from './routes'
 import './static/nord.css'
+import './static/Inter Web/inter.css'
 
 const BackgroundWrapper = styled.div`
   background-color: var(--nord0);
-
 `
 
 const Container = styled.div`
@@ -18,12 +18,10 @@ const Container = styled.div`
   height: 100vh;
   margin-left: auto;
   margin-right: auto;
-  margin-left: 10%;
-  margin-right: 10%;
   background-color: var(--nord2);
   color: var(--nord6);
-  font-family: 'JetBrains Mono';
-  font-size: 16px;
+  font-family: 'Inter';
+  font-size: 14px;
 `
 
 ReactDOM.render(
