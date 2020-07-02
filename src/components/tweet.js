@@ -2,21 +2,39 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-const ParentWrapper = styled.div`
-  padding: 5px 5px 5px 5px;
-  background-color: var(--nord1);
-`
-
-const InnerWrapper = styled.div`
+const TweetWrapper = styled.div`
   background-color: var(--nord0);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
   padding-top: 20px;
   padding-bottom: 20px;
   padding-left: 20px;
-  p {
+  cursor: pointer;
+  border: ${props => props.shouldSelect ? '1px solid var(--nord15)' : ''}
+`
+
+const ImageWrapper = styled.div`
+  pointer-events: none;
+
+  img {
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+  }
+`
+
+const ContentWrapper = styled.div`
+  pointer-events: none;
+  flex-grow: 1;
+  padding-left: 2px;
+    p {
     margin: 4px 4px 4px 4px;
   }
 `
+
 const UserInfo = styled.p`
+
   strong {
     font-weight: bold;
   }
@@ -45,17 +63,24 @@ const Tweet = ({
   retweeted = '',
   text = '',
   truncated = '',
-  user = {}
+  user = {},
+  handleClick,
+  isSelected = false
 }) => {
   return (
-    <ParentWrapper>
-      <InnerWrapper>
-        <UserInfo><strong>{user.name}</strong>{' '}@{user.screen_name}</UserInfo>
+    <TweetWrapper id={id} onClick={handleClick} shouldSelect={isSelected}>
+      <ImageWrapper>
+        <img src={user.profile_image_url} alt='' />
+      </ImageWrapper>
+      <ContentWrapper>
+        <UserInfo>
+          <strong>{user.name}</strong>{' '}@{user.screen_name}
+        </UserInfo>
         <Text>{text}</Text>
         <Iteractions>Rt: {retweet_count} rt?{retweeted} fv: {favorite_count} fv?{favorited}</Iteractions>
         <CreatedAt>{created_at}</CreatedAt>
-      </InnerWrapper>
-    </ParentWrapper>
+      </ContentWrapper>
+    </TweetWrapper>
   )
 }
 
