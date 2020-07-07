@@ -10,3 +10,9 @@ export function getTimeline() {
     .get('getTimeline')
     .then(result => result.data)
 }
+
+export function deleteTweets(data) {
+  return api
+    .post('deleteTweets', { data })
+    .then(result => result.data)
+}
