@@ -7,7 +7,6 @@ import styled from 'styled-components'
 
 import Routes from './routes'
 import './static/nord.css'
-import './static/Inter Web/inter.css'
 
 const BackgroundWrapper = styled.div`
   background-color: var(--nord0);
@@ -20,7 +19,9 @@ const Container = styled.div`
   margin-right: auto;
   background-color: var(--nord2);
   color: var(--nord6);
-  font-family: 'Inter';
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 100;
   font-size: 14px;
 `
 
