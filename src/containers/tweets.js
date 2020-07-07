@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import Tweet from '../components/tweet'
 import InfoLabel from '../components/infoLabel'
 
+import { api, request } from '../utils/handleRequests'
+
 const TimelineWrapper = styled.div`
   padding: 5px;
   background-color: var(--nord1);
@@ -12,6 +14,11 @@ const TimelineWrapper = styled.div`
 const TweetWrapper = styled.div`
   padding: 5px 5px 5px 5px;
   background-color: var(--nord1);
+`
+
+const SendButton = styled.button`
+  margin: auto;
+  display: block;
 `
 
 const Tweets = ({ tweetdata = {} }) => {
@@ -23,18 +30,24 @@ const Tweets = ({ tweetdata = {} }) => {
     setData(d)
   }, [tweetdata])
 
-  function handleClick (event) {
+  function handleClick(event) {
     const target = event.target.id
 
-    const selected = data.filter(el => el.id == target)[0] // Pega o elemento que você selecionou
-    const newList = data.filter(el => el.id != target) // Pega a lista sem o elemento que selecionou
-    selected.isSelected = true // Define que ele tá selecionado
+    const mutatedArray = []
+    data.map((item, index) => {
+      if (item.id == target) {
+        const r = { ...item }
+        r.isSelected = !r.isSelected
+        mutatedArray.push(r)
+      } else {
+        mutatedArray.push(item)
+      }
+    })
 
-    newList.push(selected) // Adiciona o elemento selecionado
-    setData(newList) // Adiciona o selecionado na lista de novo com o novo parametro
+    setData(mutatedArray)
   }
 
-  function handleTweets (key, value) {
+  function handleTweets(key, value) {
     const t = value[key]
 
     return (
@@ -42,6 +55,26 @@ const Tweets = ({ tweetdata = {} }) => {
         <Tweet handleClick={handleClick} {...t} />
       </TweetWrapper>
     )
+  }
+
+  function handleGetIds() {
+    const r = data.reduce((accumulator, actual) => {
+      if (actual?.isSelected) {
+        accumulator.push(actual.id_str)
+      }
+      return accumulator
+    }, [])
+    console.log('result', r)
+    sendDelete(r)
+  }
+
+  async function sendDelete(ids = []) {
+    try {
+      const response = await request(api.deleteTweets(ids))
+      console.log('response', response)
+    } catch (error) {
+      console.log('error', error)
+    }
   }
 
   return (
@@ -52,6 +85,8 @@ const Tweets = ({ tweetdata = {} }) => {
           return handleTweets(item, data)
         })}
       </TimelineWrapper>
+      <br />
+      <SendButton onClick={handleGetIds} children='Send' />
     </>
   )
 }

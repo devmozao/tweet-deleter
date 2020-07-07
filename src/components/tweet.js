@@ -2,6 +2,10 @@ import React from 'react'
 
 import styled from 'styled-components'
 
+import { ReactComponent as Heart } from '../static/svgs/heart.svg'
+import { ReactComponent as Repeat } from '../static/svgs/repeat.svg'
+import { ReactComponent as Message } from '../static/svgs/message-square.svg'
+
 const TweetWrapper = styled.div`
   background-color: var(--nord0);
   display: flex;
@@ -10,6 +14,7 @@ const TweetWrapper = styled.div`
   padding-top: 20px;
   padding-bottom: 20px;
   padding-left: 20px;
+  border-radius: 20px;
   cursor: pointer;
   border: ${props => props.shouldSelect ? '1px solid var(--nord15)' : ''}
 `
@@ -18,7 +23,7 @@ const ImageWrapper = styled.div`
   pointer-events: none;
 
   img {
-    border-radius: 50%;
+    border-radius: 20%;
     width: 32px;
     height: 32px;
   }
@@ -77,7 +82,11 @@ const Tweet = ({
           <strong>{user.name}</strong>{' '}@{user.screen_name}
         </UserInfo>
         <Text>{text}</Text>
-        <Iteractions>Rt: {retweet_count} rt?{retweeted} fv: {favorite_count} fv?{favorited}</Iteractions>
+        <Iteractions>
+          <Heart />
+          <Repeat />
+          <Message />
+        </Iteractions>
         <CreatedAt>{created_at}</CreatedAt>
       </ContentWrapper>
     </TweetWrapper>
