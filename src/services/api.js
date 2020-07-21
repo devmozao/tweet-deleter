@@ -5,13 +5,13 @@ const api = axios.create({
   timeout: 10000
 })
 
-export function getTimeline() {
+export function getTimeline () {
   return api
     .get('getTimeline')
     .then(result => result.data)
 }
 
-export function deleteTweets(data) {
+export function deleteTweets (data) {
   return api
     .post('deleteTweets', { data })
     .then(result => result.data)
