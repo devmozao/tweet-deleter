@@ -15,12 +15,11 @@ const TweetWrapper = styled.div`
   padding: 24px;
   border-radius: 20px;
   cursor: pointer;
-  border: ${props => props.shouldSelect ? '1px solid var(--nord15)' : ''}
+  border: ${({ shouldSelect }) => shouldSelect ? '2px solid var(--nord10)' : ''}
 `
 
 const ImageWrapper = styled.div`
   pointer-events: none;
-
   img {
     border-radius: 20%;
     width: 32px;
@@ -53,12 +52,8 @@ const Iteractions = styled.div`
   div {
     display: flex;
     flex: 0 1 10px;
-    /* flex-basis: 10px; */
     justify-content: space-between;
   }
-`
-const IterationsSpacing = styled.span`
-  
 `
 
 const Tweet = ({
@@ -89,7 +84,7 @@ const Tweet = ({
   }
 
   return (
-    <TweetWrapper id={id_str} onClick={handleClick} shouldSelect={isSelected} data-testid={isSelected ? id_str.toString : ''}>
+    <TweetWrapper id={id_str} onClick={handleClick} shouldSelect={isSelected}>
       <ImageWrapper>
         <img src={user.profile_image_url} alt='' />
       </ImageWrapper>
