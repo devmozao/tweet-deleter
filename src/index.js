@@ -13,7 +13,7 @@ const BackgroundWrapper = styled.div`
 `
 
 const Container = styled.div`
-  max-width: 1280px;
+  max-width: 800px;
   height: 100vh;
   margin-left: auto;
   margin-right: auto;
