@@ -14,7 +14,6 @@ function Home () {
   async function getTimeline () {
     try {
       const response = await request(api.getTimeline())
-
       setTweetdata(response)
     } catch (error) {
       console.log('error', error)

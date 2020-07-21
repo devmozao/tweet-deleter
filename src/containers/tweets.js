@@ -64,14 +64,12 @@ const Tweets = ({ tweetdata = {} }) => {
       }
       return accumulator
     }, [])
-    console.log('result', r)
     sendDelete(r)
   }
 
   async function sendDelete(ids = []) {
     try {
       const response = await request(api.deleteTweets(ids))
-      console.log('response', response)
     } catch (error) {
       console.log('error', error)
     }
