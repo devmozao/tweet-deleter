@@ -14,7 +14,7 @@ const BackgroundWrapper = styled.div`
 
 const Container = styled.div`
   max-width: 800px;
-  height: 100vh;
+  min-height: 100vh;
   margin-left: auto;
   margin-right: auto;
   background-color: var(--nord2);
