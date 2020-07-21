@@ -1,6 +1,7 @@
 import React from 'react'
 
 import styled from 'styled-components'
+import moment from 'moment-twitter'
 
 import { ReactComponent as Heart } from '../static/svgs/heart.svg'
 import { ReactComponent as Repeat } from '../static/svgs/repeat.svg'
@@ -11,9 +12,7 @@ const TweetWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-left: 20px;
+  padding: 24px;
   border-radius: 20px;
   cursor: pointer;
   border: ${props => props.shouldSelect ? '1px solid var(--nord15)' : ''}
@@ -32,24 +31,34 @@ const ImageWrapper = styled.div`
 const ContentWrapper = styled.div`
   pointer-events: none;
   flex-grow: 1;
-  padding-left: 2px;
-    p {
-    margin: 4px 4px 4px 4px;
-  }
+  padding: 0px 0px 0px 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 80px;
 `
 
-const UserInfo = styled.p`
-
-  strong {
+const UserInfo = styled.div`
+  div {
+    display: flex;
+    justify-content: space-between;
+  }
+  div strong {
     font-weight: bold;
   }
 `
-const Text = styled.p`
+const Content = styled.div`
 `
-const Iteractions = styled.p`
+const Iteractions = styled.div`
+  div {
+    display: flex;
+    flex: 0 1 10px;
+    /* flex-basis: 10px; */
+    justify-content: space-between;
+  }
 `
-const CreatedAt = styled.p`
-  font-size: 12px;
+const IterationsSpacing = styled.span`
+  
 `
 
 const Tweet = ({
@@ -72,22 +81,40 @@ const Tweet = ({
   handleClick,
   isSelected = false
 }) => {
+  const DateSinceCreation = () => {
+    const d = moment(created_at).twitterShort()
+    return (
+      <div>{d}</div>
+    )
+  }
+
   return (
-    <TweetWrapper id={id} onClick={handleClick} shouldSelect={isSelected}>
+    <TweetWrapper id={id_str} onClick={handleClick} shouldSelect={isSelected} data-testid={isSelected ? id_str.toString : ''}>
       <ImageWrapper>
         <img src={user.profile_image_url} alt='' />
       </ImageWrapper>
       <ContentWrapper>
         <UserInfo>
-          <strong>{user.name}</strong>{' '}@{user.screen_name}
+          <div>
+            <strong>{user.name}</strong>
+            <DateSinceCreation />
+          </div>
+          <p>@{user.screen_name}</p>
         </UserInfo>
-        <Text>{text}</Text>
+        <Content>{text}</Content>
         <Iteractions>
-          <Heart />
-          <Repeat />
-          <Message />
+          <div>
+            <div>
+              <Message />{' '}
+            </div>
+            <div>
+              <Repeat />{retweet_count}
+            </div>
+            <div>
+              <Heart />{favorite_count}
+            </div>
+          </div>
         </Iteractions>
-        <CreatedAt>{created_at}</CreatedAt>
       </ContentWrapper>
     </TweetWrapper>
   )
