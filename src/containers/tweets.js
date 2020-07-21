@@ -5,10 +5,9 @@ import styled from 'styled-components'
 import Tweet from '../components/tweet'
 import InfoLabel from '../components/infoLabel'
 
-import { api, request } from '../utils/handleRequests'
-
 const TimelineWrapper = styled.div`
   padding: 5px;
+  padding-top: 70px;
   background-color: var(--nord1);
 `
 const TweetWrapper = styled.div`
@@ -16,26 +15,31 @@ const TweetWrapper = styled.div`
   background-color: var(--nord1);
 `
 
-const SendButton = styled.button`
-  margin: auto;
-  display: block;
-`
-
-const Tweets = ({ tweetdata = {} }) => {
+const Tweets = ({ tweetdata = [], handleUpdate, handleDelete }) => {
   const { remaining } = tweetdata
   const [data, setData] = useState([])
 
   useEffect(() => {
-    const d = tweetdata.data
-    setData(d)
+    const { data } = { ...tweetdata }
+    if (Array.isArray(data)) {
+      return setData(data)
+    }
   }, [tweetdata])
 
-  function handleClick(event) {
+  function handleTweets (value = {}, key = '') {
+    return (
+      <TweetWrapper key={key}>
+        <Tweet handleClick={handleClick} {...value} />
+      </TweetWrapper>
+    )
+  }
+
+  function handleClick (event) {
     const target = event.target.id
 
     const mutatedArray = []
     data.map((item, index) => {
-      if (item.id == target) {
+      if (item.id_str === target) {
         const r = { ...item }
         r.isSelected = !r.isSelected
         mutatedArray.push(r)
@@ -43,48 +47,44 @@ const Tweets = ({ tweetdata = {} }) => {
         mutatedArray.push(item)
       }
     })
-
     setData(mutatedArray)
   }
 
-  function handleTweets(key, value) {
-    const t = value[key]
-
-    return (
-      <TweetWrapper key={key}>
-        <Tweet handleClick={handleClick} {...t} />
-      </TweetWrapper>
-    )
+  function handleSelectAll () {
+    const mutatedArray = []
+    data.map((item, index) => {
+      const r = { ...item }
+      r.isSelected = !r.isSelected
+      mutatedArray.push(r)
+    })
+    setData(mutatedArray)
   }
 
-  function handleGetIds() {
-    const r = data.reduce((accumulator, actual) => {
+  function handleDeleteTweets () {
+    const selectedTweets = data.reduce((accumulator, actual) => {
       if (actual?.isSelected) {
         accumulator.push(actual.id_str)
       }
       return accumulator
     }, [])
-    sendDelete(r)
-  }
-
-  async function sendDelete(ids = []) {
-    try {
-      const response = await request(api.deleteTweets(ids))
-    } catch (error) {
-      console.log('error', error)
-    }
+    handleDelete(selectedTweets)
   }
 
   return (
     <>
-      <InfoLabel remaining={remaining} />
+      <InfoLabel
+        remaining={remaining}
+        handleFunctionUpdateTimeline={handleUpdate}
+        handleFunctionSelectAll={handleSelectAll}
+        handleFunctionDeleteTweet={handleDeleteTweets}
+      />
+
       <TimelineWrapper>
-        {data && Object.keys(data).map(item => {
-          return handleTweets(item, data)
+        {Array.isArray(data) && data.map((item, index) => {
+          return handleTweets(item, index)
         })}
       </TimelineWrapper>
       <br />
-      <SendButton onClick={handleGetIds} children='Send' />
     </>
   )
 }
