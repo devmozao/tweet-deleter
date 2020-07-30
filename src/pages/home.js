@@ -1,41 +1,32 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react';
 
-import * as api from '../services/api'
+import { getAuth } from '../services/api'
 
-import Tweets from '../containers/tweets'
-
-function Home () {
-  const [tweetdata, setTweetdata] = useState({})
-
+const Home = () => {
+  const [url, setUrl] = useState('')
   useEffect(() => {
-    getTimeline()
+    getOAuth()
   }, [])
 
-  async function getTimeline () {
+  async function getOAuth() {
     try {
-      const response = await api.getTimeline()
-      setTweetdata(response)
-    } catch (error) {
-      console.log('error', error)
-    }
-  }
-
-  async function deleteTweet (ids = []) {
-    try {
-      console.log(await api.deleteTweets(ids))
-      // await getTimeline()
+      const response = await getAuth()
+      console.log('response', response)
+      setUrl(response.url)
     } catch (error) {
       console.log('error', error)
     }
   }
 
   return (
-    <Tweets
-      tweetdata={tweetdata}
-      handleUpdate={getTimeline}
-      handleDelete={deleteTweet}
-    />
+    <>
+      {url && (
+        <a href={url}>
+          Twitter
+        </a>
+      )}
+    </>
   )
 }
 
-export default Home
+export default Home;

@@ -5,14 +5,26 @@ const api = axios.create({
   timeout: 10000
 })
 
-export function getTimeline () {
+export function getTimeline() {
   return api
     .get('getTimeline')
     .then(result => result.data)
 }
 
-export function deleteTweets (data) {
+export function deleteTweets(data) {
   return api
     .post('deleteTweets', { data })
+    .then(result => result.data)
+}
+
+export function getAuth() {
+  return api
+    .get('/login')
+    .then(result => result.data)
+}
+
+export function login({ oauth_token = '', oauth_verifier = '' }) {
+  return api
+    .post('/teste', { oauth_token, oauth_verifier })
     .then(result => result.data)
 }
