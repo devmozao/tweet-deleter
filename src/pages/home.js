@@ -1,32 +1,14 @@
-import React, { useEffect, useState } from 'react';
-
-import { getAuth } from '../services/api'
+import React from 'react'
 
 const Home = () => {
-  const [url, setUrl] = useState('')
-  useEffect(() => {
-    getOAuth()
-  }, [])
-
-  async function getOAuth() {
-    try {
-      const response = await getAuth()
-      console.log('response', response)
-      setUrl(response.url)
-    } catch (error) {
-      console.log('error', error)
-    }
-  }
-
   return (
     <>
-      {url && (
-        <a href={url}>
-          Twitter
+      <p>Home</p>
+      <a href='/login'>
+        Twitter
         </a>
-      )}
     </>
   )
 }
 
-export default Home;
+export default Home
