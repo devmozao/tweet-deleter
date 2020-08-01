@@ -4,14 +4,14 @@ import * as api from '../services/api'
 
 import Tweets from '../containers/tweets'
 
-function Home () {
+function Home() {
   const [tweetdata, setTweetdata] = useState({})
 
   useEffect(() => {
     getTimeline()
   }, [])
 
-  async function getTimeline () {
+  async function getTimeline() {
     try {
       const response = await api.getTimeline()
       setTweetdata(response)
@@ -20,10 +20,11 @@ function Home () {
     }
   }
 
-  async function deleteTweet (ids = []) {
+  async function deleteTweet(ids = []) {
     try {
-      console.log(await api.deleteTweets(ids))
-      // await getTimeline()
+      const r = await api.deleteTweets(ids)
+      console.log('r', r)
+      await getTimeline()
     } catch (error) {
       console.log('error', error)
     }
